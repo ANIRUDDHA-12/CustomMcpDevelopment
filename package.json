@@ -1,0 +1,19 @@
+{
+  "name": "tdd-agent-harness",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@ai-sdk/google": "^3.0.80",
+    "@ai-sdk/groq": "^3.0.39",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "ai": "^6.0.197",
+    "dotenv": "^17.4.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.2",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.8"
+  }
+}
