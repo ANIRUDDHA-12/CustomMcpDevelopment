@@ -3,6 +3,7 @@
 # ==========================================
 # Block all local environment files, but allow the template/example file
 .env
+package.json
 .env.local
 .env.development.local
 .env.test.local
@@ -29,6 +30,7 @@ node_modules/
 .npm
 .eslintcache
 .stylelintcache
+
 
 # Yarn / pnpm specific (uncomment if you use them)
 # .pnpm-debug.log*

@@ -194,7 +194,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
                 }
             },
             {
-                name:"execute_git_commit",
+                name:"execute_git_command",
                 description:"Stages all changes and commits them to local Git Repository",
                 inputSchema:{
                     type:"object",

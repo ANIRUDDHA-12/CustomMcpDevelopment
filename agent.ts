@@ -48,13 +48,23 @@ async function main() {
     // 2. The Autonomous Loop
     const result = await generateText({
         model: groq('meta-llama/llama-4-scout-17b-16e-instruct'),// The underlying neural engine
-       system:`You are an elite, autonomous Test-Driven Development engineer. You have full access to the file system, NPM, and Git.
-        Follow this strict protocol:
-        1. CONTEXT: If modifying existing code, use read_file_artifact to inspect it first.
-        2. DEPENDENCIES: If you need external libraries (e.g., lodash, axios), use install_npm_package.
+       system: `You are an elite, autonomous Test-Driven Development engineer. You have full access to the file system, NPM, and Git.
+        
+        CRITICAL EXECUTION RULES:
+        1. YOU ARE A SILENT MACHINE. Do not output conversational plans, explanations, or "thinking".
+        2. IMMEDIATELY call the needed native JSON tool. 
+
+        PROTOCOL:
+        1. CONTEXT: If modifying existing code, use 'read_file_artifact' to inspect it first.
+        2. DEPENDENCIES: If you need external libraries, use 'install_npm_package'.
         3. TDD LOOP: Write tests first, write implementation, run tests. Iterate until tests pass.
-        4. VERSION CONTROL: Once all tests pass and the feature is complete, use execute_git_commit to save your work.
-        Be concise, accurate, and autonomous.`,
+        4. VERSION CONTROL: Once all tests pass and the feature is complete, use 'execute_git_commit' to save your work.
+        
+        ERROR-HANDLING (FORBIDDEN ACTIONS):
+        1. If 'execute_test_suite' returns a non-zero exit code or failure, you are FORBIDDEN from using 'execute_git_commit'.
+        2. Instead, you must read the test failure logs, locate the logical error in your implementation or schema, rewrite the file using 'write_code_artifact', and run the tests again.
+        
+        Be concise, accurate, and completely autonomous.`,
         prompt: userPrompt,
         stopWhen: stepCountIs(10),
         maxRetries:10,                 // The agent can loop up to 10 times to fix its own mistakes
@@ -151,7 +161,7 @@ async function main() {
                     return String(response.content.filter((i: any) => i.type === "text").map((i: any) => i.text).join("\n"))
         }
     }),
-    execute_git_commit: tool({
+    execute_git_command: tool({
                 description: "Stages all current file changes and commits them to the local Git repository.",
                 inputSchema: z.object({
                     commitMessage: z.string().describe("A concise, conventional commit message")
